@@ -27,9 +27,8 @@ public class TsscTopicServiceImp implements TsscTopicService{
 	}
 
 	@Override
-	public TsscTopic getTsscTopic(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public TsscTopic getTsscTopic(long id) {		
+		return tsscTopicRespository.findById(id).get();
 	}
 
 	@Override
