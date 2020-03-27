@@ -127,15 +127,18 @@ class TsscGameTest {
 	}
 
 	@Test
-	public void createGameTopicNullTestThrowsException() {
+	public void createGameTopicNullTest2() {
 		tsscTopic = new TsscTopic();
 		tsscGame.setNGroups(0);
 		tsscGame.setNSprints(0);
+		long id = 1;
 
 		try {
+			when(tsscTopicRepository.findById(id)).thenReturn(Optional.empty());
 			tsscGameServiceImp.createGame(tsscGame, tsscTopic.getId());
 
 		} catch (TopicNoExistsException | GameSaveException e) {
+			
 			assertTrue(true);
 		}
 		verify(tsscGameRepository, times(0)).save(tsscGame);
@@ -147,7 +150,7 @@ class TsscGameTest {
 	 * los requisitos correctos
 	 */
 	@Test
-	public void UpdateGame() {
+	public void UpdateGameNoThrowException() {
 		tsscTopic = new TsscTopic();
 		tsscGame.setNGroups(99);
 		tsscGame.setNSprints(99);
@@ -171,12 +174,13 @@ class TsscGameTest {
 	 * cero no permite guardar la actualización de game
 	 */
 	@Test
-	public void UpdateGame2() {
+	public void UpdateGameThrowException() {
 		tsscTopic = new TsscTopic();
 		tsscGame.setNGroups(0);
 		tsscGame.setNSprints(0);
 
 		try {
+			
 			tsscGameServiceImp.updateTsscGame(tsscGame);
 		} catch (GameSaveException | GameNotEsxistException e) {
 			assertTrue(true);
@@ -191,7 +195,7 @@ class TsscGameTest {
 	 * teniendo el número de grupos y el número de sprint mayor que cero
 	 */
 	@Test
-	public void UpdateGame3() {
+	public void UpdateGameThrowException2() {
 		tsscTopic = new TsscTopic();
 		tsscGame.setNGroups(99);
 		tsscGame.setNSprints(99);
@@ -209,12 +213,15 @@ class TsscGameTest {
 	 * cero no permite guardar la actualización de game
 	 */
 	@Test
-	public void UpdateGame4() {
+	public void UpdateGameThrowException3() {
 		tsscTopic = new TsscTopic();
 		tsscGame.setNGroups(-99);
 		tsscGame.setNSprints(-99);
 
 		try {
+			Optional<TsscGame> optional = Optional.of(tsscGame);
+			when(tsscGameRepository.save(Mockito.any())).thenReturn(tsscGame);
+			when(tsscGameRepository.findById(tsscGame.getId())).thenReturn(optional);
 			tsscGameServiceImp.updateTsscGame(tsscGame);
 		} catch (GameSaveException | GameNotEsxistException e) {
 			assertTrue(true);
@@ -229,7 +236,7 @@ class TsscGameTest {
 	 * teniendo el número de grupos y el número de sprint menor que cero
 	 */
 	@Test
-	public void UpdateGame5() {
+	public void UpdateGameThrowException4() {
 		tsscTopic = new TsscTopic();
 		tsscGame.setNGroups(-99);
 		tsscGame.setNSprints(-99);

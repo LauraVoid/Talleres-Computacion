@@ -205,7 +205,7 @@ class TsscStoryTest {
 	 * prioridad mayor que cero y que la historia exista lo actualiza correctamente
 	 */
 	@Test
-	public void updatecreateStoryNoThrowException() {
+	public void updateStoryNoThrowException() {
 		tsscStory.setBusinessValue(BigDecimal.ONE);
 		tsscStory.setInitialSprint(BigDecimal.ONE);
 		tsscStory.setPriority(BigDecimal.ONE);
@@ -230,7 +230,7 @@ class TsscStoryTest {
 	 * correctamente
 	 */
 	@Test
-	public void updatecreateStoryThrowException() {
+	public void updateStoryThrowException() {
 		tsscStory.setBusinessValue(BigDecimal.ZERO);
 		tsscStory.setInitialSprint(BigDecimal.ZERO);
 		tsscStory.setPriority(BigDecimal.ZERO);
@@ -254,7 +254,7 @@ class TsscStoryTest {
 	 */
 
 	@Test
-	public void updatecreateStoryNullThrowException() {
+	public void updateStoryNullThrowException() {
 
 		try {
 			tsscStoryService.updateStory(null).equals(tsscStory);
