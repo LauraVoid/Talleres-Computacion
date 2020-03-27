@@ -6,6 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -40,16 +42,16 @@ class TsscGameTest {
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		tsscGame= new TsscGame();
-		tsscTopic= new TsscTopic();
+		
 		
 	}
 
 	@Test
 	public void createGameTestThrowsException() {
-		
+		tsscTopic= new TsscTopic();
 		tsscGame.setNGroups(0);
 		tsscGame.setNSprints(0);
-		tsscTopicRepository.save(tsscTopic);
+		
 		
 		try {
 			tsscGameServiceImp.createGame(tsscGame,tsscTopic.getId());
@@ -63,23 +65,15 @@ class TsscGameTest {
 	
 	@Test
 	public void createGameTestNoThrowsException() {
-		
-		
-		//TsscTopic ts=tsscTopicRepository.save(tsscTopic);
-		
-		
-		//TsscTopic found= tsscTopicRepository.findById(tsscTopic.getId()).get();
-		//System.out.println("in prueba"+found.getId());
+			
+		long id=1;
 		tsscGame.setNGroups(1);
 		tsscGame.setNSprints(1);
-		
-		tsscGame.setTsscTopic(tsscTopic);
-		
-		try {
-				
-			tsscTopicRepository.save(tsscTopic);
+	
+		try {				
+			when(tsscTopicRepository.findById(id)).thenReturn(Optional.of(new TsscTopic()));			
 			when(tsscGameRepository.save(tsscGame)).thenReturn(tsscGame);
-			assertTrue(tsscGameServiceImp.createGame(tsscGame,tsscTopic.getId()).equals(tsscGame));
+			assertTrue(tsscGameServiceImp.createGame(tsscGame,id).equals(tsscGame));
 			verify(tsscGameRepository, times(1)).save(tsscGame);
 			
 		}catch(GameSaveException | TopicNoExistsException e) {
@@ -91,7 +85,7 @@ class TsscGameTest {
 	}
 	@Test
 	public void createGameTopicNullTest() {	
-		
+		tsscTopic= new TsscTopic();
 		tsscGame.setNGroups(1);
 		tsscGame.setNSprints(1);
 		
@@ -102,14 +96,14 @@ class TsscGameTest {
 			assertTrue(true);
 		}
 		verify(tsscGameRepository, times(0)).save(tsscGame);
-		//verifyZeroInteractions(TsscTopicRepository);
+		
 		
 		
 		
 	}
 	@Test
 	public void createGameTopicNullTestThrowsException() {	
-		
+		tsscTopic= new TsscTopic();
 		tsscGame.setNGroups(0);
 		tsscGame.setNSprints(0);
 		
@@ -120,11 +114,27 @@ class TsscGameTest {
 			assertTrue(true);
 		}
 		verify(tsscGameRepository, times(0)).save(tsscGame);
-		//verifyZeroInteractions(TsscTopicRepository);
+	
 		
 		
 		
 	}
+	/*
+	 * Prueba para verificar si realiza correctamente una actualizacion con
+	 * todos los requisitos correctos
+	 */
+	@Test
+	public void UpdateGame() {		
+		tsscTopic= new TsscTopic();
+		tsscGame.setNGroups(99);
+		tsscGame.setNSprints(99);
+		
+		
+		
+		
+		
+	}
+	
 
 
 }

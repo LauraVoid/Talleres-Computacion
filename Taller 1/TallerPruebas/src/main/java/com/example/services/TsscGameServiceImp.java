@@ -29,7 +29,7 @@ public class TsscGameServiceImp implements TsscGameService{
 		if(story.getNGroups()<=0 || story.getNSprints()<=0) {
 			throw new GameSaveException();
 		}else {
-			System.out.println("Id metodo"+topic);
+			
 			Optional<TsscTopic> found= tsscTopicRepository.findById(topic);
 			if(found==null) {
 				throw new TopicNoExistsException();

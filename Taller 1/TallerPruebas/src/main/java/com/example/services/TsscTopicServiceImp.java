@@ -1,7 +1,10 @@
 package com.example.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.example.exceptions.TopicNoExistsException;
 import com.example.exceptions.TopicSaveException;
 import com.example.modelo.TsscTopic;
 import com.example.repositories.TsscTopicRepository;
@@ -32,8 +35,23 @@ public class TsscTopicServiceImp implements TsscTopicService{
 	}
 
 	@Override
-	public void updateTsscTopic(TsscTopic topic) {
-		// TODO Auto-generated method stub
+	public TsscTopic updateTsscTopic(TsscTopic topic)throws TopicNoExistsException, TopicSaveException {
+		
+		Optional <TsscTopic> found  = tsscTopicRespository.findById(topic.getId());
+		
+		if(found== null) {
+			throw new TopicNoExistsException();
+		}else {
+			if(topic.getDefaultGroups()<=0 || topic.getDefaultSprints()<=0) {
+				throw new TopicSaveException();
+			}
+			
+			return tsscTopicRespository.save(topic);			
+			
+		}
+		
+
+
 		
 	}
 
