@@ -1,14 +1,14 @@
 package com.example.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.exceptions.TopicNoExistsException;
 import com.example.exceptions.TopicSaveException;
 import com.example.modelo.TsscTopic;
 import com.example.repositories.TsscTopicRepository;
 
+@Service
 public class TsscTopicServiceImp implements TsscTopicService {
 
 	public TsscTopicRepository tsscTopicRespository;
