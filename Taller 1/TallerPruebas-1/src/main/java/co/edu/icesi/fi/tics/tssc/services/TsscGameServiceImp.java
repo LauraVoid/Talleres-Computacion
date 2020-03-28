@@ -55,7 +55,7 @@ public class TsscGameServiceImp implements TsscGameService {
 				throw new GameSaveException();
 			}
 
-			return tsscGameRepository.save(found.get());
+			return tsscGameRepository.save(story);
 		}
 	}
 
