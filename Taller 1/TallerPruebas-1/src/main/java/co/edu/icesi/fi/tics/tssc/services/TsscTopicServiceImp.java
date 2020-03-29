@@ -22,11 +22,14 @@ public class TsscTopicServiceImp implements TsscTopicService {
 	public TsscTopic createTopic(TsscTopic story) throws TopicSaveException {
 
 		if (story == null) {
-			throw new TopicSaveException();
+			throw new TopicSaveException(3);
 		} else {
-			if (story.getDefaultGroups() <= 0 || story.getDefaultSprints() <= 0) {
-				throw new TopicSaveException();
-			} else {
+			if (story.getDefaultGroups() <= 0 ) {
+				throw new TopicSaveException(1);
+			}else if(story.getDefaultSprints() <= 0) {
+				throw new TopicSaveException(2);
+			}			
+			else {
 				tsscTopicRespository.save(story);
 			}
 		}
@@ -43,18 +46,20 @@ public class TsscTopicServiceImp implements TsscTopicService {
 	public TsscTopic updateTsscTopic(TsscTopic topic) throws TopicNoExistsException, TopicSaveException {
 
 		if (topic == null) {
-			throw new TopicSaveException();
+			throw new TopicSaveException(3);
 		} else {
+			
+			
 			if (tsscTopicRespository.findById(topic.getId()).isPresent() == false) {
 				throw new TopicNoExistsException();
 			} else {
-				if (topic.getDefaultGroups() <= 0 || topic.getDefaultSprints() <= 0) {
-					throw new TopicSaveException();
+				if (topic.getDefaultGroups() <= 0 ) {
+					throw new TopicSaveException(1);
+				}else if(topic.getDefaultSprints() <= 0) {
+					throw new TopicSaveException(2);
 				}
-
-				return tsscTopicRespository.save(topic);
-
 			}
+			return tsscTopicRespository.save(topic);
 		}
 
 	}

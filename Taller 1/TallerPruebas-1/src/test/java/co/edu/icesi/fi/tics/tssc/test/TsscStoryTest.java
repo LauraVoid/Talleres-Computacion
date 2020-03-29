@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -46,6 +47,7 @@ class TsscStoryTest {
 	 * existe el game asociado
 	 */
 	@Test
+	@DisplayName("Prueba story null")
 	public void createStoryNullTest() {
 		long id = 1;
 		try {

@@ -66,6 +66,8 @@ public class TsscStory implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "TSSC_STATE_ID")
 	private TsscState tsscState;
+	
+	
 
 	public TsscStory() {
 	}

@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -57,12 +58,14 @@ class TsscTopicTest {
 	}
 
 	@Test
+	
 	public void createTopicTestNull() {
 
 		try {
 			tsscTopicService.createTopic(null);
 		} catch (TopicSaveException e) {
 			assertTrue(true);
+			//System.out.println(e.getMessage());
 		}
 
 		verify(tsscTopicRepository, times(0)).save(tsscTopic);
@@ -101,11 +104,15 @@ class TsscTopicTest {
 	@Test
 	public void updateTopicTestThrowsNotExistException() {
 
-		long id = 3;
-		when(tsscTopicRepository.findById(id)).thenReturn(Optional.empty());
-		assertThrows(TopicNoExistsException.class, () -> {
+		//TsscTopic topic2= new TsscTopic();
+		long id = 0;		
+		try {
+			when(tsscTopicRepository.findById(id)).thenReturn(Optional.empty());
 			tsscTopicService.updateTsscTopic(tsscTopic);
-		});
+		}catch(TopicNoExistsException | TopicSaveException e) {
+			assertTrue(true);
+		}
+		
 
 		verify(tsscTopicRepository, times(0)).save(tsscTopic);
 
@@ -137,7 +144,7 @@ class TsscTopicTest {
 	public void updateTopicTestThrowsNotExistException2() {
 		tsscTopic.setDefaultSprints(0);
 		tsscTopic.setDefaultGroups(0);
-		long id = 3;
+		long id = 0;
 		when(tsscTopicRepository.findById(id)).thenReturn(Optional.empty());
 
 		assertThrows(TopicNoExistsException.class, () -> {
