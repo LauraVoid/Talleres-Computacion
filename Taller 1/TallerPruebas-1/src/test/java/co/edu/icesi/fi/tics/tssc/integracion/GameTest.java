@@ -4,8 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.icesi.fi.tics.tssc.exceptions.GameNotEsxistException;
 import co.edu.icesi.fi.tics.tssc.exceptions.GameSaveException;
@@ -17,6 +20,7 @@ import co.edu.icesi.fi.tics.tssc.services.TsscGameServiceImp;
 import co.edu.icesi.fi.tics.tssc.services.TsscTopicServiceImp;
 
 @SpringBootTest
+
 class GameTest {
 
 	
@@ -47,12 +51,22 @@ class GameTest {
 		
 		try {
 			
-			assertEquals(tsscGameService.createGame(game, topic.getId()), game);
-		} catch ( GameSaveException | TopicNoExistsException e) {
-			
+			assertEquals(tsscGameService.createGame(game), game);
+		} catch ( GameSaveException e) {
+			fail();
 		}
 	}
-	
+	@Test
+	public void createGame2Test() {
+		
+	try {
+			
+			assertEquals(tsscGameService.createGameTopic(game, topic.getId()), game);
+		} catch ( GameSaveException | TopicNoExistsException e) {
+			fail();
+		}
+		
+	}
 	@Test
 	public void updateGameTest() {
 		 TsscGame game2= new TsscGame();
@@ -64,11 +78,13 @@ class GameTest {
 			game2.setNGroups(10);
 			game2.setNSprints(10);
 			
-			tsscGameService.createGame(game, topic.getId());
+			tsscGameService.createGameTopic(game, topic.getId());
 			assertEquals(tsscGameService.updateTsscGame(game2).getName(), name);
 		} catch ( GameSaveException | GameNotEsxistException | TopicNoExistsException  e) {
-			
+			fail();
 		}
 	}
+	
+	
 
 }

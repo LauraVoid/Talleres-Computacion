@@ -6,8 +6,10 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import co.edu.icesi.fi.tics.tssc.exceptions.GameNotEsxistException;
 import co.edu.icesi.fi.tics.tssc.exceptions.GameSaveException;
@@ -49,7 +51,7 @@ class StoryTest {
 		
 		long id=0;
 		try {
-			tsscGameService.createGame(game, id);			
+			tsscGameService.createGameTopic(game, id);			
 			assertEquals(tsscStoryService.createStory(story, game.getId()), story);
 		} catch (GameSaveException | TopicNoExistsException | StorySaveException | GameNotEsxistException e) {
 			

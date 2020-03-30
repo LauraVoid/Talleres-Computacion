@@ -30,7 +30,7 @@ public class TsscGameServiceImp implements TsscGameService {
 	}
 
 	@Override
-	public TsscGame createGame(TsscGame story, long topic) throws GameSaveException, TopicNoExistsException {
+	public TsscGame createGameTopic(TsscGame story, long topic) throws GameSaveException, TopicNoExistsException {
 		if (story == null) {
 			throw new GameSaveException();
 		} else {
@@ -42,6 +42,21 @@ public class TsscGameServiceImp implements TsscGameService {
 				} else {
 					tsscGameRepository.save(story);
 				}
+			}
+
+			return story;
+		}
+	}
+	@Override
+	public TsscGame createGame(TsscGame story) throws GameSaveException {
+		if (story == null) {
+			throw new GameSaveException();
+		} else {
+			if (story.getNGroups() <= 0 || story.getNSprints() <= 0) {
+				throw new GameSaveException();
+			} else {				
+					tsscGameRepository.save(story);
+				
 			}
 
 			return story;
@@ -93,5 +108,7 @@ public class TsscGameServiceImp implements TsscGameService {
 			return tsscGameRepository.save(story);
 		}
 	}
+
+	
 
 }

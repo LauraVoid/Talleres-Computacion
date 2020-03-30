@@ -47,13 +47,13 @@ class TsscGameTest {
 	}
 
 	@Test
-	public void createGameTestThrowsException() {
+	public void createGameTopicTestThrowsException() {
 		tsscTopic = new TsscTopic();
 		tsscGame.setNGroups(0);
 		tsscGame.setNSprints(0);
 
 		try {
-			tsscGameServiceImp.createGame(tsscGame, tsscTopic.getId());
+			tsscGameServiceImp.createGameTopic(tsscGame, tsscTopic.getId());
 
 		} catch (GameSaveException | TopicNoExistsException e) {
 			assertTrue(true);
@@ -64,7 +64,51 @@ class TsscGameTest {
 
 	/**
 	 * Prueba para verificar que es posible crear un game con el numero de grupos y
-	 * el numero de sprint mayor que cero y con un topic asociado que exista
+	 * el numero de sprint mayor que cero y sin un topic asociado
+	 */
+
+	@Test
+	public void createGameTopicTestNoThrowsException() {
+
+		long id = 1;
+		tsscGame.setNGroups(1);
+		tsscGame.setNSprints(1);
+
+		try {
+			when(tsscTopicRepository.findById(id)).thenReturn(Optional.of(new TsscTopic()));
+			when(tsscGameRepository.save(tsscGame)).thenReturn(tsscGame);
+			assertTrue(tsscGameServiceImp.createGameTopic(tsscGame, id).equals(tsscGame));
+			verify(tsscGameRepository, times(1)).save(tsscGame);
+
+		} catch (GameSaveException | TopicNoExistsException e) {
+
+			fail();
+		}
+
+	}
+	/**
+	 * Prueba para verificar que es no posible crear un game con el numero de grupos y
+	 * el numero de sprint igual a cero y sin un topic asociado
+	 */
+	@Test
+	public void createGameTestThrowsException() {
+		tsscTopic = new TsscTopic();
+		tsscGame.setNGroups(0);
+		tsscGame.setNSprints(0);
+
+		try {
+			tsscGameServiceImp.createGame(tsscGame);
+
+		} catch (GameSaveException e) {
+			assertTrue(true);
+		}
+		verify(tsscGameRepository, times(0)).save(tsscGame);
+
+	}
+
+	/**
+	 * Prueba para verificar que es posible crear un game con el numero de grupos y
+	 * el numero de sprint mayor que cero 
 	 */
 
 	@Test
@@ -75,12 +119,12 @@ class TsscGameTest {
 		tsscGame.setNSprints(1);
 
 		try {
-			when(tsscTopicRepository.findById(id)).thenReturn(Optional.of(new TsscTopic()));
+			
 			when(tsscGameRepository.save(tsscGame)).thenReturn(tsscGame);
-			assertTrue(tsscGameServiceImp.createGame(tsscGame, id).equals(tsscGame));
+			assertTrue(tsscGameServiceImp.createGame(tsscGame).equals(tsscGame));
 			verify(tsscGameRepository, times(1)).save(tsscGame);
 
-		} catch (GameSaveException | TopicNoExistsException e) {
+		} catch (GameSaveException  e) {
 
 			fail();
 		}
@@ -164,7 +208,7 @@ class TsscGameTest {
 		try {
 
 			tsscGameServiceImp.createGame2(null);
-		} catch (GameSaveException | TopicNoExistsException e) {
+		} catch (TopicNoExistsException | GameSaveException e) {
 			assertTrue(true);
 		}
 		verify(tsscGameRepository, times(0)).save(tsscGame);
@@ -179,7 +223,7 @@ class TsscGameTest {
 		long id = 0;
 
 		try {
-			tsscGameServiceImp.createGame(null, id);
+			tsscGameServiceImp.createGameTopic(null, id);
 		} catch (GameSaveException | TopicNoExistsException e) {
 			assertTrue(true);
 
@@ -199,7 +243,7 @@ class TsscGameTest {
 		long id = 1;
 		try {
 			when(tsscTopicRepository.findById(id)).thenReturn(Optional.empty());
-			tsscGameServiceImp.createGame(tsscGame, id);
+			tsscGameServiceImp.createGameTopic(tsscGame, id);
 
 		} catch (TopicNoExistsException | GameSaveException e) {
 			assertTrue(true);
@@ -207,6 +251,10 @@ class TsscGameTest {
 		verify(tsscGameRepository, times(0)).save(tsscGame);
 
 	}
+	/**
+	 Prueba para verificar que no es posible agregar un juego con un tema no
+	 * existente y los numeros de grupos y numero de sprint menor que cero
+	 */
 
 	@Test
 	public void createGameTopicNullTest2() {
@@ -217,7 +265,7 @@ class TsscGameTest {
 
 		try {
 			when(tsscTopicRepository.findById(id)).thenReturn(Optional.empty());
-			tsscGameServiceImp.createGame(tsscGame, tsscTopic.getId());
+			tsscGameServiceImp.createGameTopic(tsscGame, tsscTopic.getId());
 
 		} catch (TopicNoExistsException | GameSaveException e) {
 
