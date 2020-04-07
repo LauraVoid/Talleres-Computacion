@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import co.edu.icesi.fi.tics.tssc.exceptions.TopicSaveException;
 import co.edu.icesi.fi.tics.tssc.modelo.TsscTopic;
 import co.edu.icesi.fi.tics.tssc.services.TsscTopicServiceImp;
 
@@ -25,17 +26,17 @@ public class TopicController {
 	
 	@GetMapping("/Topic/indexTopic")
 	public String indexTopic(Model model) {
-		model.addAttribute("topics");
+		model.addAttribute("topics", topicService.findAll());
 		return "Topic/indexTopic";
 		
 	}
-	@GetMapping("/Topic/saveTopic")
+	@GetMapping("/Topic/SaveTopic")
 	public String saveTopic(Model model) {
 		model.addAttribute("topic", new TsscTopic());
 		return "topic/saved";		
 	}
 	
-	@PostMapping("/topic/saveTopic")
+	@PostMapping("/topic/SaveTopic")
 	public String saveTopic(@Valid TsscTopic topic, BindingResult binding,
 			@RequestParam(value = "action", required = true) String action, Model model) {
 		if(binding.hasErrors()) {
@@ -43,12 +44,12 @@ public class TopicController {
 		}
 		if(!action.equals("Cancel")) {
 			
-			model.addAttribute("id",topic.getId());
-			model.addAttribute("description", topic.getDescription());
-			model.addAttribute("name",topic.getName());
-			model.addAttribute("defaultSprints", topic.getDefaultSprints());
-			model.addAttribute("defaultGroups", topic.getDefaultGroups());
-			model.addAttribute("groupPrefix",topic.getGroupPrefix());
+			
+			try {
+				topicService.createTopic(topic);
+			} catch (TopicSaveException e) {
+				
+			}
 		}
 		
 		return "/Topic/indexTopic";

@@ -2,6 +2,7 @@ package co.edu.icesi.fi.tics.tssc.modelo;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -34,9 +35,11 @@ public class TsscGame implements Serializable {
 	private String guestPassword;
 
 	@Column(name = "N_GROUPS")
+	@Min(value=1, message= "Numero de grupos minimo es 1")
 	private Integer nGroups = 4;
 
 	@Column(name = "N_SPRINTS")
+	@Min(value=1, message= "Numero de sprints minimo es 1")
 	private Integer nSprints = 4;
 
 	private String name;

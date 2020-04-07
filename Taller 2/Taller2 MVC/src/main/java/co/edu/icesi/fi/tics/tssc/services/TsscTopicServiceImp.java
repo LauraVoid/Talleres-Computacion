@@ -64,4 +64,9 @@ public class TsscTopicServiceImp implements TsscTopicService {
 
 	}
 
+	@Override
+	public Iterable<TsscTopic> findAll() {
+		return tsscTopicRespository.findAll();
+	}
+
 }

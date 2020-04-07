@@ -72,4 +72,9 @@ public class TsscStoryServiceImp implements TsscStoryService {
 
 	}
 
+	@Override
+	public Iterable<TsscStory> findAll() {
+		return storyRepository.findAll();
+	}
+
 }
