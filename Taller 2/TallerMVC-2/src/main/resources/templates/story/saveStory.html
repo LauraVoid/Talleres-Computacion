@@ -21,8 +21,8 @@
 		<h2 class="mb-5">New User</h2>
 		<div class="row">
 			<div class="col-md-6">
-				<form action="#" th:action="@{Story/SaveStory/}"
-					th:object="${story}" method="post">
+				<form action="#" th:action="@{/story/save/}"
+					th:object="${tsscStory}" method="post">
 					<div class="row">
 						
 						
@@ -114,7 +114,7 @@
 						<div class="row">
 							<div class="col-md-4 mt-3">
 								<input type="submit" name="action" class="btn btn-primary"
-									value="Add Topic">
+									value="Add">
 							</div>
 
 							<div class="col-md-3 mt-3">

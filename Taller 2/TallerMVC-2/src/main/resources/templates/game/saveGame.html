@@ -21,8 +21,8 @@
 		<h2 class="mb-5">New Game</h2>
 		<div class="row">
 			<div class="col-md-6">
-				<form action="#" th:action="@{/Game/saveGame}"
-					th:object="${game}" method="post">
+				<form action="#" th:action="@{/game/save/}"
+					th:object="${tsscGame}" method="post">
 					<div class="row">				
 						
 							<!-- Admin Password -->
@@ -50,6 +50,15 @@
 									class="form-control" id="nGroups" placeholder="000">
 								<span th:if="${#fields.hasErrors('nGroups')}"
 									th:errors="*{nGroups}" class="text-danger"> </span>
+							</div>
+							
+							<!-- Number Sprint -->
+							<div class="form-group col-md-6">
+								<label for="nSprints" class="col-form-label">Number Sprint
+									</label> <input type="number" th:field="*{nSprints}"
+									class="form-control" id="nSprints" placeholder="000">
+								<span th:if="${#fields.hasErrors('nSprints')}"
+									th:errors="*{nSprints}" class="text-danger"> </span>
 							</div>
 
 							<!-- Name-->
@@ -130,7 +139,7 @@
 						<div class="row">
 							<div class="col-md-4 mt-3">
 								<input type="submit" name="action" class="btn btn-primary"
-									value="Add Topic">
+									value="Add">
 							</div>
 
 							<div class="col-md-3 mt-3">

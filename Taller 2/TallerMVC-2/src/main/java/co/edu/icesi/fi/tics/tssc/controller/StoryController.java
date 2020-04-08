@@ -26,33 +26,34 @@ public class StoryController {
 		storyService= story;
 	}
 	
-	@GetMapping("/Story/")
+	@GetMapping("/story/")
 	public String indexStory(Model model) {
 		model.addAttribute("stories", storyService.findAll());
 		return "Story/indexStory";
 	}
 	
-	@GetMapping("/Story/save")
+	@GetMapping("/story/save")
 	public String saveStory(Model model) {
-		model.addAttribute("story", new TsscStory());
-		return "Story/SaveStory";
+		model.addAttribute("tsscStory", new TsscStory());
+		return "story/saveStory";
 	}
-	@PostMapping("/Story/SaveStory")
-	public String saveStory(@Valid TsscStory story, BindingResult binding,
+	@PostMapping("/story/save")
+	public String saveStory(@Valid TsscStory tsscStory, BindingResult binding,
 			@RequestParam(value = "action", required = true) String action, Model model) {
 		if(binding.hasErrors()) {
-			return "Story/SaveStory";
+			return "story/saveStory";
 			
 		}
 		if(!action.equals("Cancel")) {
 			
 			
 			//EL ID DE GAME ESTA PENDIENTE
-			long id= story.getTsscGame().getId();
+			long id= 8;
+					//tsscStory.getTsscGame().getId();
 			try {
-				storyService.createStory(story, id);
+				storyService.createStory(tsscStory, id);
 			} catch (StorySaveException | GameNotEsxistException e) {
-				
+				System.out.println(e.getMessage());
 			}
 			return "redirect:/Story/";
 			

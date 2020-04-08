@@ -24,37 +24,36 @@ public class GameController {
 		gameService= game;
 	}
 	
-	@GetMapping("/Game/")
+	@GetMapping("/game/")
 	public String indexGame(Model model) {
 		model.addAttribute("games", gameService.findAll());
-		System.out.println("AQUIII");
-		return "Game/index";
+		return "game/indexGame";
 	}
 	
-	@GetMapping("/Game/save")
+	@GetMapping("/game/save")
 	public String saveGame(Model model) {
-		model.addAttribute("game", new TsscGame());
-		return "/Game/saveGame";
+		model.addAttribute("tsscGame", new TsscGame());
+		return "/game/saveGame";
 	}
 	
-	@PostMapping("/Game/save")
-	public String saveGame(@Valid TsscGame game, BindingResult binding,
-			@RequestParam(value = "action", required = true) String action, Model model) {
+	@PostMapping("/game/save")
+	public String saveGame(@RequestParam(value = "action", required = true) String action,
+			@Valid TsscGame tsscGame, BindingResult binding) {
 		if(binding.hasErrors()) {
-			return "/Game/saveGame";
+			return "game/saveGame";
 			
 		}
 		if(!action.equals("Cancel")) {
 		
 			try {
-				gameService.createGame(game);
+				gameService.createGame(tsscGame);
 			} catch (GameSaveException e) {
 			}
 			return "redirect:/Games/";
 		}
 		
 		
-		return "Game/index";
+		return "Game/indexGame";
 	}
 
 }

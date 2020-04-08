@@ -17,41 +17,48 @@ import co.edu.icesi.fi.tics.tssc.services.TsscTopicServiceImp;
 @Controller
 public class TopicController {
 
-	public  TsscTopicServiceImp topicService;
-	
+	public TsscTopicServiceImp topicService;
+
 	@Autowired
-	public TopicController (TsscTopicServiceImp topic) {
-		topicService=topic;
+	public TopicController(TsscTopicServiceImp topic) {
+		topicService = topic;
 	}
-	
-	@GetMapping("/Topic/")
+
+	@GetMapping("/topics/")
 	public String indexTopic(Model model) {
 		model.addAttribute("topics", topicService.findAll());
-		return "Topic/indexTopic";
-		
+		return "topics/index";
+
 	}
-	@GetMapping("/Topic/save")
+
+	@GetMapping("/topics/add")
 	public String saveTopic(Model model) {
-		model.addAttribute("topic", new TsscTopic());
-		return "Topic/SaveTopic";		
+		model.addAttribute("tsscTopic", new TsscTopic());
+		return "topics/add-topic";
 	}
-	
-	@PostMapping("/Topic/save")
-	public String saveTopic(@RequestParam(value = "action", required = true) String action,@Valid TsscTopic topic, BindingResult binding) {
-		if(binding.hasErrors()) {
-			return "Topic/SaveTopic";
-		}
-		if(!action.equals("Cancel")) {
-			
-			
-			try {
-				topicService.createTopic(topic);
-			} catch (TopicSaveException e) {
+
+	@PostMapping("/topics/add")
+	public String saveTopic(@RequestParam(value = "action", required = true) String action, @Valid TsscTopic tsscTopic,
+			BindingResult binding, Model model) {
+
+		if (!action.equals("Cancel")) {
+
+			if (binding.hasErrors()) {
+				return "topics/add-topic";
+
+			} else {
 				
+				try {
+					topicService.createTopic(tsscTopic);
+				} catch (TopicSaveException e) {
+
+				}
+				return "redirect:/topics/";
 			}
-			return "redirect:/Topic/";
+			
+		} else {
+
+			return "topics/index";
 		}
-		
-		return "Topic/indexTopic";
 	}
 }
