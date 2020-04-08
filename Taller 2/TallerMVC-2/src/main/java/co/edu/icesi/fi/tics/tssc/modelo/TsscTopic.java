@@ -25,7 +25,7 @@ public class TsscTopic implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TSSC_TOPIC_ID_GENERATOR")
 	private long id;
 
-	@NotBlank(message= "La descripción es obligatoria")	
+	//@NotBlank(message= "La descripción es obligatoria")	
 	private String description;
 
 	@NotBlank(message= "La descripción es obligatoria")	
@@ -39,7 +39,7 @@ public class TsscTopic implements Serializable {
 	@Column(name = "DEFAULT_GROUPS")
 	private long defaultGroups;
 
-	@NotBlank(message= "El prefijo de gupo es obligatorio")
+	//@NotBlank(message= "El prefijo de gupo es obligatorio")
 	@Column(name = "GROUP_PREFIX")
 	private String groupPrefix;
 
@@ -54,6 +54,7 @@ public class TsscTopic implements Serializable {
 	private List<TsscStory> tsscStories;
 	
 	@OneToMany(mappedBy = "tsscTopic")
+	@JsonIgnore
 	private List<TsscTimecontrol> tsscTimeControls;
 
 	public TsscTopic() {

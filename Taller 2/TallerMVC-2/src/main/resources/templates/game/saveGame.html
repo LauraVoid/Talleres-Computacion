@@ -125,15 +125,20 @@
 									th:errors="*{userPassword}" class="text-danger"> </span>
 							</div>
 							
+							
 							<!-- Topic Associated-->
+							
 							<!-- PENDIENTE -->
 							<div class="form-group col-md-6">
-								<label for="userPassword" class="col-form-label">Associated Topic
-									</label> <input type="text" th:field="*{userPassword}"
-									class="form-control" id="userPassword" placeholder="userPassword">
-								<span th:if="${#fields.hasErrors('userPassword')}"
-									th:errors="*{userPassword}" class="text-danger"> </span>
-							</div>
+							<label for="tsscTopic" class="col-form-label">Topics</label> <select
+								th:field="*{tsscTopic}">
+								<option th:value="-1" th:selected="${tsscGame.tsscTopic=null}" selected></option>
+								<option th:each="topic : ${topics}" th:value="${topic.id}"
+									class="form-control" th:text="${topic.name}"
+									th:selected="${tsscGame.tsscTopic=topic}"></option>
+							</select> <span th:if="${#fields.hasErrors('tsscTopic')}"
+								th:errors="*{tsscTopic}" class="text-danger"></span>
+						</div>
 							
 						</div>
 						<div class="row">

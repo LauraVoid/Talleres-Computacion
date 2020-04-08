@@ -43,6 +43,7 @@
 						</thead>
 						<tbody>
 							<tr th:each="game : ${games}">
+								<td class="text-info" th:text="${game.id}"></td>
 								<td class="text-info" th:text="${game.adminPassword}"></td>
 							    <td class="text-info" th:text="${game.guestPassword}"></td>
 							    <td class="text-info" th:text="${game.nGroups}"></td>
@@ -56,11 +57,7 @@
 								<td class="text-info" th:text="${game.tsscTopic}"></td>								
 								
 								<!-- COMPLETAR EDIT Y CONSULTA -->
-								<td><a th:href="@{/users/edit/{id}(id=${user.id})}"
-									class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-								<td><a th:href="@{/users/del/{id}(id=${user.id})}"
-									class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
-							</tr>
+							
 						</tbody>
 					</table>
 				</div>

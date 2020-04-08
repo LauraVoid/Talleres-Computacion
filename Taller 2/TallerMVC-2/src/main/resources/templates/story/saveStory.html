@@ -48,7 +48,7 @@
 							<div class="form-group col-md-6">
 								<label for="businessValue" class="col-form-label">Business Value</label> 
 								<input type="number" th:field="*{businessValue}"
-									class="form-control" id="businessValue" placeholder="000">
+									class="form-control" id="businessValue" placeholder="0">
 								<span th:if="${#fields.hasErrors('businessValue')}"
 									th:errors="*{businessValue}" class="text-danger"> </span>
 							</div>
@@ -57,7 +57,7 @@
 							<div class="form-group col-md-6">
 								<label for="initialSprint" class="col-form-label">Initial Sprint</label>
 								 <input type="number" th:field="*{initialSprint}"
-									class="form-control" id="initialSprint" placeholder="000">
+									class="form-control" id="initialSprint" placeholder="0">
 								<span th:if="${#fields.hasErrors('initialSprint')}"
 									th:errors="*{initialSprint}" class="text-danger"> </span>
 							</div>
@@ -75,7 +75,7 @@
 							<div class="form-group col-md-6">
 								<label for="number" class="col-form-label">Number</label>
 								 <input type="number" th:field="*{number}"
-									class="form-control" id="number" placeholder="000">
+									class="form-control" id="number" placeholder="0">
 								<span th:if="${#fields.hasErrors('number')}"
 									th:errors="*{number}" class="text-danger"> </span>
 							</div>
@@ -84,7 +84,7 @@
 							<div class="form-group col-md-6">
 								<label for="priority" class="col-form-label">Priority</label>
 								 <input type="number" th:field="*{priority}"
-									class="form-control" id="priority" placeholder="000">
+									class="form-control" id="priority" placeholder="0">
 								<span th:if="${#fields.hasErrors('priority')}"
 									th:errors="*{priority}" class="text-danger"> </span>
 							</div>
@@ -101,15 +101,14 @@
 							<!-- Tssc Game-->
 							<!-- REVISAR PENDIENTE POR TERMINAR -->
 							<div class="form-group col-md-6">
-								<label for="tsscGame" class="col-form-label">Game Associated</label> 
-								<select	class="form-control-range" th:field="*{tsscGame}">
-								<option th:each="tsscGame : ${tsscGames}" th:value="${tsscGame}"
-									class="form-control" th:text="${tsscGame}"
-									th:selected="${tsscStory.game =tsscGame}"></option>
-							</select>
-								<span th:if="${#fields.hasErrors('tsscGame')}"
-									th:errors="*{tsscGame}" class="text-danger"> </span>
-							</div>
+							<label for="tsscGame" class="col-form-label">Topics</label> <select
+								th:field="*{tsscGame}">								
+								<option th:each="game : ${games}" th:value="${game.id}"
+									class="form-control" th:text="${game.name}"
+									th:selected="${tsscStory.tsscGame=game}"></option>
+							</select> <span th:if="${#fields.hasErrors('tsscGame')}"
+								th:errors="*{tsscGame}" class="text-danger"></span>
+						</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 mt-3">

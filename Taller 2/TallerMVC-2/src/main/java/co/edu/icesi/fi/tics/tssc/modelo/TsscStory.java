@@ -5,6 +5,8 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,22 +34,24 @@ public class TsscStory implements Serializable {
 	@NotBlank(message= "Alt description es obligatorio")
 	private String altDescripton;
 
-	@Column(name = "BUSINESS_VALUE")	
+	@Column(name = "BUSINESS_VALUE")
+	@NotNull(message= "El valor de negocio es obligatorio")
 	@Min(value=1, message="El valor de negocio debe ser minimo 1")
 	private BigDecimal businessValue;
 
 	private String description;
 
-	@Column(name = "INITIAL_SPRINT")	
+	@Column(name = "INITIAL_SPRINT")
 	@Min(value=1, message="El valor inicial de sprint debe ser minimo 1")
+	@NotNull(message= "El valor inicial de sprint es obligatorio")
 	private BigDecimal initialSprint;
 
 	@Column(name = "ST_NUMBER")
 	
 	private BigDecimal number;
 
-	
-	@DecimalMin(value="1.0" , message="La prioridad debe ser minimo 1")
+	@NotNull(message= "La prioridad es obligatoria")
+	@Min(value=1 , message="La prioridad debe ser minimo 1")
 	private BigDecimal priority;
 
 	@Column(name = "SHORT_DESCRIPTION")
@@ -65,7 +69,7 @@ public class TsscStory implements Serializable {
 	// bi-directional many-to-one association to TsscGame
 	@ManyToOne
 	@JoinColumn(name = "TSSC_GAME_ID")
-	//@NotBlank(message= "El juego asociado es obligatorio")
+	@NotNull(message= "El juego asociado es obligatorio")
 	private TsscGame tsscGame;
 	
 	//bi-directional many-to-one association to TsscTopic
