@@ -115,6 +115,11 @@ public class TsscGameServiceImp implements TsscGameService {
 		return tsscGameRepository.findAll();
 	}
 
+	@Override
+	public Optional<TsscGame> findById(long id) {
+		return tsscGameRepository.findById(id);
+	}
+
 	
 
 }

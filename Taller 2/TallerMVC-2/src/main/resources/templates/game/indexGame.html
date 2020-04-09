@@ -57,6 +57,10 @@
 								<td class="text-info" th:text="${game.tsscTopic}"></td>								
 								
 								<!-- COMPLETAR EDIT Y CONSULTA -->
+								<td><a th:href="@{/game/edit/{id}(id=${game.id})}"
+									class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
+								<td><a th:href="@{/game/del/{id}(id=${game.id})}"
+									class="btn btn-primary"><i class="fas fa-trash-alt"></i></a></td>
 							
 						</tbody>
 					</table>

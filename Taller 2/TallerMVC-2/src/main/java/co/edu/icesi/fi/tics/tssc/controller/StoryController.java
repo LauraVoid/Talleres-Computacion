@@ -1,5 +1,7 @@
 package co.edu.icesi.fi.tics.tssc.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,16 +40,7 @@ public class StoryController {
 	@GetMapping("/story/")
 	public String indexStory(Model model) {
 		model.addAttribute("stories", storyService.findAll());
-		TsscGame g1= new TsscGame();
-		g1.setNGroups(10);
-		g1.setNSprints(100);
-		g1.setName("juego1");
-		try {
-			gameService.createGame(g1);
-		} catch (GameSaveException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return "Story/indexStory";
 	}
 	
@@ -69,7 +63,6 @@ public class StoryController {
 			
 			//EL ID DE GAME ESTA PENDIENTE
 			long id= tsscStory.getTsscGame().getId();
-					//tsscStory.getTsscGame().getId();
 			try {
 				storyService.createStory(tsscStory, id);
 			} catch (StorySaveException | GameNotEsxistException e) {
@@ -82,5 +75,41 @@ public class StoryController {
 		}
 		return "story/index";
 	}
+	@GetMapping("/story/edit/{id}")
+	public String editStory(@PathVariable("id")long id,Model model) {
+		//model.addAttribute("tsscStory", new TsscStory());
+		Optional<TsscStory> tsscStory= storyService.findById(id);
+		if(tsscStory== null) {
+			throw new IllegalArgumentException("No existe el Story id "+id);
+		}else {
+			model.addAttribute("tsscStory", tsscStory.get());
+			model.addAttribute("games", gameService.findAll());
+		}
+		
+		return "story/edit-story";
+	}
+	
+	@PostMapping("/story/edit/{id}")
+	public String editStory(@PathVariable("id")long id,@RequestParam(value = "action", required = true) String action,
+			@Valid TsscStory tsscStory, BindingResult binding,Model model) {
+		//model.addAttribute("tsscStory", new TsscStory());
+		if(binding.hasErrors()) {
+			model.addAttribute("games", gameService.findAll());
+			return "story/edit-story";
+		}else {
+			
+			if(!action.equals("Cancel")) {
+				long idg = tsscStory.getTsscGame().getId();
+				try {
+					storyService.createStory(tsscStory, idg);
+				} catch (StorySaveException | GameNotEsxistException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return "redirect:/story/";
+	}
+	
 
 }

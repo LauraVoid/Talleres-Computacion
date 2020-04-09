@@ -77,4 +77,9 @@ public class TsscStoryServiceImp implements TsscStoryService {
 		return storyRepository.findAll();
 	}
 
+	@Override
+	public Optional<TsscStory> findById(long id) {
+		return storyRepository.findById(id);
+	}
+
 }

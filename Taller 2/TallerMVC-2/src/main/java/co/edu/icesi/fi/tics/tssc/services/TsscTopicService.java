@@ -1,5 +1,7 @@
 package co.edu.icesi.fi.tics.tssc.services;
 
+import java.util.Optional;
+
 import co.edu.icesi.fi.tics.tssc.exceptions.TopicNoExistsException;
 import co.edu.icesi.fi.tics.tssc.exceptions.TopicSaveException;
 import co.edu.icesi.fi.tics.tssc.modelo.TsscStory;
@@ -11,6 +13,7 @@ public interface TsscTopicService {
 	public TsscTopic getTsscTopic(long id);
 	public TsscTopic updateTsscTopic(TsscTopic topic)throws TopicNoExistsException, TopicSaveException;
 	public Iterable<TsscTopic> findAll();
+	public Optional<TsscTopic> findById(long id);
 
 
 

@@ -27,11 +27,11 @@ public class TsscStory implements Serializable {
 	private long id;
 
 	@Column(name = "ALT_DESC_SHOWN")
-	@NotBlank(message= "Alt description Shown es obligatorio")
+	//@NotBlank(message= "Alt description Shown es obligatorio")
 	private String altDescShown;
 
 	@Column(name = "ALT_DESCRIPTON")
-	@NotBlank(message= "Alt description es obligatorio")
+	//@NotBlank(message= "Alt description es obligatorio")
 	private String altDescripton;
 
 	@Column(name = "BUSINESS_VALUE")
@@ -55,7 +55,7 @@ public class TsscStory implements Serializable {
 	private BigDecimal priority;
 
 	@Column(name = "SHORT_DESCRIPTION")
-	@NotBlank(message= "La decripción corta es obligatoria")
+	//@NotBlank(message= "La decripción corta es obligatoria")
 	private String shortDescription;
 
 	// bi-directional many-to-one association to TsscAcceptanceCriteria

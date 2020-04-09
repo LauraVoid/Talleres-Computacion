@@ -34,7 +34,7 @@
 								<th>Number</th>
 								<th>Priority</th>
 								<th>Short Description</th>
-								<th>Tssc Game</th>
+								<th>Tssc Game id</th>
 								<th>Edit</th>
 								<th>Delete</th>
 							</tr>
@@ -53,7 +53,10 @@
 								<td class="text-info" th:text="${story.tsscGame.id}"></td>
 								
 								<!-- COMPLETAR EDIT Y CONSULTA -->
-								
+								<td><a th:href="@{/story/edit/{id}(id=${story.id})}"
+									class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
+								<td><a th:href="@{/topics/del/{id}(id=${story.id})}"
+									class="btn btn-primary"><i class="fas fa-trash-alt"></i></a></td>
 							</tr>
 						</tbody>
 					</table>

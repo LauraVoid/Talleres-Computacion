@@ -1,5 +1,7 @@
 package co.edu.icesi.fi.tics.tssc.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +69,11 @@ public class TsscTopicServiceImp implements TsscTopicService {
 	@Override
 	public Iterable<TsscTopic> findAll() {
 		return tsscTopicRespository.findAll();
+	}
+
+	@Override
+	public Optional<TsscTopic> findById(long id) {
+		return tsscTopicRespository.findById(id);
 	}
 
 }

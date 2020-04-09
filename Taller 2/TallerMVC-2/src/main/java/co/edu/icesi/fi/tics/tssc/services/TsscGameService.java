@@ -1,5 +1,7 @@
 package co.edu.icesi.fi.tics.tssc.services;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import co.edu.icesi.fi.tics.tssc.exceptions.GameNotEsxistException;
@@ -17,5 +19,6 @@ public interface TsscGameService {
 	public TsscGame createGame2(TsscTopic story)throws GameSaveException, TopicNoExistsException;
 	public TsscGame updateTsscGame(TsscGame story)throws GameSaveException, GameNotEsxistException;
 	public Iterable<TsscGame> findAll();
+	public Optional<TsscGame>findById(long id);
 
 }
