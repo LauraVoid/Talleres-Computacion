@@ -93,5 +93,11 @@ public class TopicController {
 		
 		return "redirect:/topics/";
 	}
+	
+	@GetMapping("/login")
+	public String loginAdmin() {
+		return "loginAdmin";
+	}
+	
 
 }

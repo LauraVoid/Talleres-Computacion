@@ -1,8 +1,8 @@
 package co.edu.icesi.fi.tics.tssc.services;
 
+import co.edu.icesi.fi.tics.tssc.modelo.TsscAdmin;
+
 public interface TsscAdminService {
 
-	/**
-	 * Validaciones necesarias del TsscAdmin?
-	 */
+	public TsscAdmin saveAdmin (TsscAdmin name);
 }

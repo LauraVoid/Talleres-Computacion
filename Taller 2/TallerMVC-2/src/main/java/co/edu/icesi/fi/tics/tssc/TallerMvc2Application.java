@@ -10,9 +10,11 @@ import co.edu.icesi.fi.tics.tssc.exceptions.GameNotEsxistException;
 import co.edu.icesi.fi.tics.tssc.exceptions.GameSaveException;
 import co.edu.icesi.fi.tics.tssc.exceptions.StorySaveException;
 import co.edu.icesi.fi.tics.tssc.exceptions.TopicSaveException;
+import co.edu.icesi.fi.tics.tssc.modelo.TsscAdmin;
 import co.edu.icesi.fi.tics.tssc.modelo.TsscGame;
 import co.edu.icesi.fi.tics.tssc.modelo.TsscStory;
 import co.edu.icesi.fi.tics.tssc.modelo.TsscTopic;
+import co.edu.icesi.fi.tics.tssc.services.TsscAdminServiceImp;
 import co.edu.icesi.fi.tics.tssc.services.TsscGameServiceImp;
 import co.edu.icesi.fi.tics.tssc.services.TsscStoryServiceImp;
 import co.edu.icesi.fi.tics.tssc.services.TsscTopicServiceImp;
@@ -25,6 +27,13 @@ public class TallerMvc2Application {
 		TsscTopicServiceImp topic= c.getBean(TsscTopicServiceImp.class);
 		TsscGameServiceImp game= c.getBean(TsscGameServiceImp.class);
 		TsscStoryServiceImp story= c.getBean(TsscStoryServiceImp.class);
+		TsscAdminServiceImp admin=c.getBean(TsscAdminServiceImp.class);
+		
+		TsscAdmin user1 = new TsscAdmin();
+		user1.setUser("user1");
+		user1.setPassword("{noop}123");
+		user1.setSuperAdmin("admin");
+		admin.saveAdmin(user1);
 		
 		TsscTopic t= new TsscTopic();
 		t.setName("Topic1");
