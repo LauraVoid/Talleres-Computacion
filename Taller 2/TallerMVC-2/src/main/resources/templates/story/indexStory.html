@@ -50,7 +50,7 @@
 								<td class="text-info" th:text="${story.number}"></td>
 								<td class="text-info" th:text="${story.priority}"></td>
 								<td class="text-info" th:text="${story.shortDescription}"></td>
-								<td class="text-info" th:text="${story.tsscGame.id}"></td>
+								<td class="text-info" th:text="${story.tsscGame.name}"></td>
 								
 								<!-- COMPLETAR EDIT Y CONSULTA -->
 								<td><a th:href="@{/story/edit/{id}(id=${story.id})}"

@@ -29,11 +29,17 @@ public class TallerMvc2Application {
 		TsscStoryServiceImp story= c.getBean(TsscStoryServiceImp.class);
 		TsscAdminServiceImp admin=c.getBean(TsscAdminServiceImp.class);
 		
-		TsscAdmin user1 = new TsscAdmin();
-		user1.setUser("user1");
-		user1.setPassword("{noop}123");
-		user1.setSuperAdmin("admin");
-		admin.saveAdmin(user1);
+		TsscAdmin user = new TsscAdmin();
+		user.setUser("admin");
+		user.setPassword("{noop}123");
+		user.setSuperAdmin("admin");
+		admin.saveAdmin(user);
+		
+		TsscAdmin user2 = new TsscAdmin();
+		user2.setUser("superadmin");
+		user2.setPassword("{noop}123");
+		user2.setSuperAdmin("superadmin");
+		admin.saveAdmin(user2);
 		
 		TsscTopic t= new TsscTopic();
 		t.setName("Topic1");

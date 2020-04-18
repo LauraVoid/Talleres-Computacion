@@ -54,7 +54,10 @@
 								<td class="text-info" th:text="${game.startTime}"></td>	
 								<td class="text-info" th:text="${game.typegameId}"></td>	
 								<td class="text-info" th:text="${game.userPassword}"></td>	
-								<td class="text-info" th:text="${game.tsscTopic}"></td>								
+								<td class="text-info">
+								<span  th:if="${game.tsscTopic == null}" >UNKNOW</span>
+								<span  th:unless="${game.tsscTopic == null}" th:text="${game.tsscTopic.name}" > </span>
+								</td>								
 								
 								<!-- COMPLETAR EDIT Y CONSULTA -->
 								<td><a th:href="@{/game/edit/{id}(id=${game.id})}"

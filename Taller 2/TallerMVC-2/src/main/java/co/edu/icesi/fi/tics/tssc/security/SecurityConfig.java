@@ -36,15 +36,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 
+		
 		httpSecurity.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
 		.antMatchers("/index").permitAll()
-		.antMatchers("/users/**").hasAnyRole("admin")
-		.antMatchers("/apps/**").hasAnyRole("doctor")
-		.antMatchers("/apps/**").hasAnyRole("patient")
+		.antMatchers("/topics/**").hasAnyRole("superadmin")
+		.antMatchers("/game/**").hasAnyRole("superadmin","admin")
+		.antMatchers("/story/**").hasAnyRole("superadmin","admin")
 		.anyRequest().authenticated().and().httpBasic().and().logout()
 		.invalidateHttpSession(true).clearAuthentication(true)
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
 		.permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+		
+//		httpSecurity.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
+//		.antMatchers("/index").permitAll()
+//		.antMatchers("/users/**").hasAnyRole("admin")
+//		.antMatchers("/apps/**").hasAnyRole("doctor")
+//		.antMatchers("/apps/**").hasAnyRole("patient")
+//		.anyRequest().authenticated().and().httpBasic().and().logout()
+//		.invalidateHttpSession(true).clearAuthentication(true)
+//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
+//		.permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
 	}
 	
