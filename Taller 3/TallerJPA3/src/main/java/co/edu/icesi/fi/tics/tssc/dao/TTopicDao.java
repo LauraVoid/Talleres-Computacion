@@ -19,13 +19,13 @@ public class TTopicDao implements ITTopicDao {
 
 	@Override
 	public List<TsscTopic> findByName(String name) {
-		String jpql = "Select t from TsscTopic t WHERE a.name ='"+name+"'";
+		String jpql = "Select t from TsscTopic t WHERE t.name ='"+name+"'";
 		return entityManager.createQuery(jpql).getResultList();
 	}
 
 	@Override
 	public List<TsscTopic> findByDescription(String des) {
-		String jpql = "Select t from TsscTopic t WHERE a.name ='"+des+"'";
+		String jpql = "Select t from TsscTopic t WHERE t.description ='"+des+"'";
 		return entityManager.createQuery(jpql).getResultList();
 	}
 	
