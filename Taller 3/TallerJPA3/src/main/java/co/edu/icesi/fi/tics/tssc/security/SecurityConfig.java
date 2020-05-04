@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/topics/**").hasAnyRole("superadmin")
 		.antMatchers("/game/**").hasAnyRole("superadmin","admin")
 		.antMatchers("/story/**").hasAnyRole("superadmin","admin")
+		.antMatchers("/h2-console/**").permitAll()
 		.anyRequest().authenticated().and().httpBasic().and().logout()
 		.invalidateHttpSession(true).clearAuthentication(true)
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")

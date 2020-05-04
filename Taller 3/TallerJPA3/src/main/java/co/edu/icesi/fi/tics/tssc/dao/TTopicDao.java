@@ -1,5 +1,6 @@
 package co.edu.icesi.fi.tics.tssc.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,23 +14,27 @@ import co.edu.icesi.fi.tics.tssc.modelo.TsscTopic;
 @Repository
 @Scope("singleton")
 public class TTopicDao implements ITTopicDao {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
 	public List<TsscTopic> findByName(String name) {
-		String jpql = "Select t from TsscTopic t WHERE t.name ='"+name+"'";
+		String jpql = "Select t from TsscTopic t WHERE t.name ='" + name + "'";
 		return entityManager.createQuery(jpql).getResultList();
 	}
 
 	@Override
 	public List<TsscTopic> findByDescription(String des) {
-		String jpql = "Select t from TsscTopic t WHERE t.description ='"+des+"'";
+		String jpql = "Select t from TsscTopic t WHERE t.description ='" + des + "'";
 		return entityManager.createQuery(jpql).getResultList();
 	}
-	
-	
-	
+
+	@Override
+	public void save(TsscTopic topic) {
+		entityManager.persist(topic);
+
+	}
+
 
 }
