@@ -27,8 +27,9 @@ import co.edu.icesi.fi.tics.tssc.dao.TTopicDao;
 import co.edu.icesi.fi.tics.tssc.modelo.TsscGame;
 import co.edu.icesi.fi.tics.tssc.modelo.TsscTopic;
 
-@SpringBootTest(classes = TallerMvc2Application.class)
-@RunWith(SpringRunner.class)
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/applicationContext.xml")
 @Rollback(false)
 class TsscGameDao {
 
